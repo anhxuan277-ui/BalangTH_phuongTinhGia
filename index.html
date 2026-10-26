@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hồ Sơ Năng Lực & E-Catalogue | Công Ty TNHH Chế Biến Hải Sản Ba Làng (Ba Làng TH)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            navy: '#0f2b48',      /* Xanh Navy đậm chủ đạo Ba Làng TH */
+                            blue: '#163e66',      /* Xanh biển sâu */
+                            light: '#f0f6fc',     /* Nền loang xanh nhẹ */
+                            pearl: '#f8fafc',     /* Xám ngọc trai siêu nhẹ */
+                            amber: '#d48806',     /* Vàng hổ phách nước mắm */
+                            gold: '#c47f00',      /* Vàng gold nhấn */
+                            charcoal: '#334155',  /* Xám than nội dung */
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['"Be Vietnam Pro"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Be Vietnam Pro', sans-serif; background-color: #f8fafc; color: #334155; overflow-x: hidden; }
+        .font-heritage { font-family: 'Playfair Display', serif; }
+
+        /* Nền loang xanh biển nhẹ chuẩn thương hiệu Ba Làng TH */
+        .bg-ocean-watercolor {
+            background-color: #ffffff;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(22, 62, 102, 0.06) 0px, transparent 50%),
+                radial-gradient(at 100% 30%, rgba(212, 136, 6, 0.05) 0px, transparent 50%),
+                radial-gradient(at 50% 100%, rgba(15, 43, 72, 0.05) 0px, transparent 50%);
+        }
+
+        .hero-navy-overlay {
+            background: linear-gradient(110deg, rgba(15, 43, 72, 0.95) 0%, rgba(15, 43, 72, 0.86) 50%, rgba(22, 62, 102, 0.65) 100%);
+        }
+
+        .amber-gradient {
+            background: linear-gradient(135deg, #d48806 0%, #f59e0b 50%, #c47f00 100%);
+        }
+
+        .navy-gradient {
+            background: linear-gradient(135deg, #0f2b48 0%, #163e66 100%);
+        }
+
+        /* Hiệu ứng Ken Burns chuyển động nền Hero */
+        @keyframes kenburns {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+            100% { transform: scale(1); }
+        }
+        .animate-kenburns {
+            animation: kenburns 26s ease-in-out infinite;
+        }
+
+        /* Hiệu ứng nổi nhẹ Floating */
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-6px); }
+        }
+        .animate-float {
+            animation: floatSlow 5s ease-in-out infinite;
+        }
+
+        /* Hiệu ứng ánh kim chạy qua nút CTA */
+        .btn-shine {
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-shine::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -60%;
+            width: 40%;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.28);
+            transform: rotate(30deg);
+            transition: all 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .btn-shine:hover::after {
+            left: 130%;
+        }
+
+        /* Hiệu ứng xuất hiện khi cuộn trang (Scroll Reveal) */
+        .reveal {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Thẻ vuông vức, căn đỉnh thẳng hàng chuẩn quy chuẩn Ba Làng TH */
+        .brand-card {
+            background: #ffffff;
+            border: 1px solid rgba(15, 43, 72, 0.1);
+            border-radius: 16px;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+        .brand-card:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 22px 40px -12px rgba(15, 43, 72, 0.16);
+            border-color: rgba(212, 136, 6, 0.55);
+        }
+
+        .tab-btn-active {
+            background: linear-gradient(135deg, #0f2b48 0%, #163e66 100%);
+            color: #ffffff !important;
+            border-color: #d48806 !important;
+            box-shadow: 0 10px 22px -5px rgba(15, 43, 72, 0.32);
+        }
+
+        /* Gạch chân động cho thanh điều hướng */
+        .nav-link {
+            position: relative;
+            white-space: nowrap;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background: #d48806;
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f8fafc; }
+        ::-webkit-scrollbar-thumb { background: #0f2b48; border-radius: 4px; }
+    </style>
+</head>
+<body class="antialiased selection:bg-brand-navy selection:text-white">
+
+    <!-- TOP BAR HÀNH CHÍNH TRANG TRỌNG -->
+    <div class="bg-brand-navy text-white text-xs sm:text-sm py-2.5 px-4 border-b border-white/10">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
+            <div class="flex items-center gap-2.5 font-medium">
+                <span class="inline-flex items-center justify-center w-5 h-5 rounded-full amber-gradient text-white text-[11px] font-bold shadow">
+                    <i class="fa-solid fa-star"></i>
+                </span>
+                <span>HỒ SƠ NĂNG LỰC & CATALOGUE ĐIỆN TỬ KÍNH TRÌNH: <strong class="text-amber-400 uppercase tracking-wide">UBND PHƯỜNG TĨNH GIA - TỈNH THANH HÓA</strong></span>
+            </div>
+            <div class="flex items-center gap-4 text-slate-300 text-xs">
+                <span><i class="fa-solid fa-location-dot text-amber-400 mr-1.5"></i>Số 05 Đỗ Đại, TDP Thượng Hải, P. Tĩnh Gia</span>
+                <span class="hidden md:inline text-white/20">|</span>
+                <span class="hidden md:inline"><i class="fa-solid fa-phone-volume text-amber-400 mr-1.5"></i>02373.612.973</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- HEADER CHUẨN LOGO CÔNG TY BA LÀNG TH (KHÔNG RỚT DÒNG) -->
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md shadow-sm border-b border-slate-200/80 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+            <a href="#" class="flex items-center gap-3.5 shrink-0 group">
+                <img src="https://balang.com.vn/wp-content/uploads/2023/06/LOGO-BA-LANG-TH.svg" alt="Logo Ba Làng TH" class="h-12 sm:h-14 w-auto object-contain transition-transform duration-300 group-hover:scale-105">
+                <div class="hidden sm:block border-l border-slate-200 pl-3.5">
+                    <div class="flex items-center gap-2">
+                        <span class="font-extrabold text-base lg:text-lg text-brand-navy tracking-tight whitespace-nowrap">BA LÀNG TH</span>
+                        <span class="px-2 py-0.5 rounded-full bg-amber-50 border border-amber-300 text-brand-amber font-bold text-[10px] uppercase whitespace-nowrap">OCOP 4 Sao</span>
+                    </div>
+                    <div class="text-[11px] font-medium text-slate-500 whitespace-nowrap">Di Sản Làng Nghề Since 1627 • Doanh Nghiệp KH&CN</div>
+                </div>
+            </a>
+
+            <nav class="hidden lg:flex items-center gap-7 text-sm font-semibold text-brand-charcoal">
+                <a href="#tieu-diem" class="nav-link hover:text-brand-navy transition">Tiêu điểm Năng lực</a>
+                <a href="#cong-nghe" class="nav-link hover:text-brand-navy transition">Công nghệ & Di sản</a>
+                <a href="#catalogue" class="nav-link hover:text-brand-navy transition">E-Catalogue</a>
+                <a href="#chung-nhan" class="nav-link hover:text-brand-navy transition">Chứng nhận Quốc tế</a>
+                <a href="#thu-vien" class="px-5 py-2.5 rounded-xl navy-gradient text-white hover:opacity-95 transition shadow-md flex items-center gap-2 whitespace-nowrap btn-shine">
+                    <i class="fa-solid fa-images text-amber-400"></i> Tư Liệu Nhà Máy & Đón Đoàn (31 Ảnh)
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO BANNER: TÔN VINH DI SẢN 400 NĂM & VỊ THẾ DOANH NGHIỆP KH&CN -->
+    <section class="relative overflow-hidden">
+        <div class="absolute inset-0 z-0 overflow-hidden">
+            <img id="hero-bg-img" alt="Toàn cảnh Nhà máy Chế biến Hải sản Ba Làng TH" class="w-full h-full object-cover object-center animate-kenburns">
+            <div class="absolute inset-0 hero-navy-overlay"></div>
+        </div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24 text-white">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+                <div class="lg:col-span-7 reveal active">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/20 border border-amber-400/50 text-amber-300 text-xs font-bold uppercase tracking-widest mb-5">
+                        <i class="fa-solid fa-award"></i> Di Sản Làng Nghề Truyền Thống Từ Năm 1627
+                    </div>
+                    <h1 class="font-heritage text-3xl sm:text-5xl lg:text-[52px] font-bold leading-[1.16] mb-6">
+                        NƯỚC MẮM TRUYỀN THỐNG <span class="text-amber-400">BA LÀNG TH</span>
+                    </h1>
+                    <p class="text-base sm:text-lg text-slate-200 leading-relaxed mb-7 font-normal">
+                        Trực thuộc <strong>Công ty TNHH Chế biến Hải sản Ba Làng</strong> tại Phường Tĩnh Gia, thương hiệu <strong>Ba Làng TH</strong> tự hào kết hợp trọn vẹn bí quyết ủ chượp gần 400 năm của cha ông với vị thế tiên phong ứng dụng <strong>Khoa học & Công nghệ</strong>: Hệ thống bể ủ hiện đại trong <strong>nhà kính năng lượng mặt trời</strong>, công nghệ <strong>náo đảo tự động khép kín đạt giải thưởng VIFOTEC</strong>, cùng hệ thống quản lý chất lượng đạt chuẩn <strong>OCOP 4 Sao, ISO 22000:2018, HACCP CODEX và U.S. FDA Hoa Kỳ</strong>.
+                    </p>
+
+                    <div class="flex flex-wrap gap-3.5 pt-1">
+                        <a href="#catalogue" class="px-6 py-3.5 rounded-xl amber-gradient text-white font-bold text-sm shadow-lg hover:brightness-110 transition flex items-center gap-2.5 btn-shine">
+                            <i class="fa-solid fa-book-open"></i> Mở E-Catalogue Lật Trang
+                        </a>
+                        <a href="#tieu-diem" class="px-6 py-3.5 rounded-xl bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/25 text-white font-semibold text-sm transition flex items-center gap-2.5">
+                            <i class="fa-solid fa-eye text-amber-400"></i> Khám Phá Không Gian Nhà Máy
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Card Định Danh Pháp Nhân Kèm Logo Chính Thức Bên Phải Hero -->
+                <div class="lg:col-span-5 reveal active">
+                    <div class="bg-white/10 backdrop-blur-md rounded-2xl p-6 sm:p-7 border border-white/20 shadow-2xl animate-float">
+                        <div class="flex items-center justify-between pb-4 mb-5 border-b border-white/15 gap-3">
+                            <div>
+                                <div class="text-amber-400 text-xs font-bold uppercase tracking-wider">Hồ Sơ Định Danh Doanh Nghiệp</div>
+                                <div class="text-white font-bold text-base sm:text-lg mt-0.5">CÔNG TY TNHH CBHS BA LÀNG</div>
+                            </div>
+                            <div class="bg-white rounded-xl px-3 py-2 shadow-md shrink-0">
+                                <img src="https://balang.com.vn/wp-content/uploads/2023/06/LOGO-BA-LANG-TH.svg" alt="Logo Ba Làng TH" class="h-9 w-auto object-contain">
+                            </div>
+                        </div>
+                        <ul class="space-y-3.5 text-xs sm:text-sm text-slate-200">
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-circle-check text-amber-400 mt-1"></i>
+                                <span><strong>Trụ sở & Nhà máy:</strong> Số 05 đường Đỗ Đại, Tổ dân phố Thượng Hải, Phường Tĩnh Gia, Tỉnh Thanh Hóa</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-circle-check text-amber-400 mt-1"></i>
+                                <span><strong>Chứng nhận OCOP 2026:</strong> Quyết định số 715/QĐ-UBND ngày 12/03/2026 của UBND Tỉnh Thanh Hóa (Nước mắm cốt 4 Sao; Mắm tôm & Mắm tép 3 Sao)</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-circle-check text-amber-400 mt-1"></i>
+                                <span><strong>Tiêu chuẩn Quốc tế:</strong> U.S. FDA Hoa Kỳ (FFR#: 12232547010 • DUNS: 55-601-9150), ISO 22000:2018, ISO 9001:2015, HACCP CODEX</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-circle-check text-amber-400 mt-1"></i>
+                                <span><strong>Mô hình tiêu biểu:</strong> Điểm đến tham quan du lịch trải nghiệm làng nghề & giới thiệu đặc sản OCOP tại địa phương</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4 THẺ CHỈ SỐ VUÔNG VỨC, ĐỒNG ĐỀU -->
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mt-12 pt-10 border-t border-white/15 reveal active">
+                <div class="bg-brand-navy/80 backdrop-blur-md rounded-xl p-5 border border-amber-400/30 hover:border-amber-400 transition">
+                    <div class="text-amber-400 text-2xl sm:text-3xl font-extrabold">Gần 400 Năm</div>
+                    <div class="text-slate-300 text-xs sm:text-sm mt-1">Lịch sử làng nghề nước mắm cổ truyền Ba Làng (Since 1627)</div>
+                </div>
+                <div class="bg-brand-navy/80 backdrop-blur-md rounded-xl p-5 border border-amber-400/30 hover:border-amber-400 transition">
+                    <div class="text-amber-400 text-2xl sm:text-3xl font-extrabold">Giải VIFOTEC</div>
+                    <div class="text-slate-300 text-xs sm:text-sm mt-1">Hệ thống nhà kính năng lượng mặt trời & náo đảo tự động khép kín</div>
+                </div>
+                <div class="bg-brand-navy/80 backdrop-blur-md rounded-xl p-5 border border-amber-400/30 hover:border-amber-400 transition">
+                    <div class="text-amber-400 text-2xl sm:text-3xl font-extrabold">OCOP 4 Sao</div>
+                    <div class="text-slate-300 text-xs sm:text-sm mt-1">Khẳng định chất lượng đặc sản tiêu biểu Phường Tĩnh Gia</div>
+                </div>
+                <div class="bg-brand-navy/80 backdrop-blur-md rounded-xl p-5 border border-amber-400/30 hover:border-amber-400 transition">
+                    <div class="text-amber-400 text-2xl sm:text-3xl font-extrabold">Chuẩn U.S. FDA</div>
+                    <div class="text-slate-300 text-xs sm:text-sm mt-1">Đáp ứng tiêu chuẩn khắt khe để vươn tầm quốc tế</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 1: TIÊU ĐIỂM DIỆN MẠO & QUY MÔ (BENTO SHOWCASE) -->
+    <section id="tieu-diem" class="py-16 lg:py-24 bg-ocean-watercolor border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4 reveal">
+                <div>
+                    <div class="inline-flex items-center gap-2 text-brand-amber text-xs font-extrabold uppercase tracking-widest mb-2">
+                        <i class="fa-solid fa-gem"></i> Tiêu Điểm Diện Mạo & Quy Mô Ba Làng TH
+                    </div>
+                    <h2 class="font-heritage text-3xl sm:text-4xl font-bold text-brand-navy">Không Gian Nhà Máy Hiện Đại & Đón Đoàn Trải Nghiệm</h2>
+                </div>
+                <p class="text-slate-600 text-sm max-w-md">
+                    Những góc nhìn toàn cảnh ấn tượng nhất thể hiện sự đầu tư bài bản về hạ tầng sản xuất sạch, không gian trưng bày OCOP và năng lực đón tiếp các đoàn đại biểu, du khách.
+                </p>
+            </div>
+
+            <!-- Bento Grid 5 bức ảnh xuất sắc nhất (Click vào để phóng to) -->
+            <div id="bento-showcase" class="grid grid-cols-1 md:grid-cols-12 gap-5 reveal">
+                <!-- Render tự động từ JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 2: CÔNG NGHỆ & DI SẢN (BỐ CỤC THẺ VUÔNG VỨC, CĂN ĐỈNH THẲNG HÀNG) -->
+    <section id="cong-nghe" class="py-16 lg:py-24 bg-brand-pearl border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-14 reveal">
+                <div class="inline-flex items-center gap-2 text-brand-amber text-xs font-extrabold uppercase tracking-widest mb-2">
+                    <i class="fa-solid fa-flask-vial"></i> Giá Trị Khác Biệt Cốt Lõi
+                </div>
+                <h2 class="font-heritage text-3xl sm:text-4xl font-bold text-brand-navy">Giao Thoa Di Sản 400 Năm & Khoa Học Công Nghệ</h2>
+                <p class="text-slate-600 mt-3 text-sm sm:text-base">
+                    Ba Làng TH kiên định giữ trọn hương vị truyền thống nguyên bản từ cá biển tươi và muối hạt tinh khiết, đồng thời tiên phong hiện đại hóa quy trình sản xuất nhằm đảm bảo vệ sinh an toàn thực phẩm tuyệt đối.
+                </p>
+            </div>
+
+            <!-- Lưới 3 cột vuông vức, căn đỉnh tuyệt đối -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-7 items-stretch reveal">
+                <div class="brand-card p-7">
+                    <div class="w-12 h-12 rounded-xl navy-gradient text-amber-400 flex items-center justify-center text-xl mb-5 shadow-sm">
+                        <i class="fa-solid fa-solar-panel"></i>
+                    </div>
+                    <div class="text-xs font-bold uppercase tracking-wider text-brand-amber mb-1">Công Nghệ Tiên Phong</div>
+                    <h3 class="text-xl font-bold text-brand-navy mb-3">Hệ Thống Bể Ủ Nhà Kính & Náo Đảo Tự Động</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        Ba Làng TH đầu tư hệ thống <strong>bể ủ hiện đại trong nhà kính ứng dụng năng lượng mặt trời</strong> kết hợp công nghệ <strong>náo đảo tự động khép kín đạt Giải thưởng Sáng tạo Khoa học Công nghệ Việt Nam (VIFOTEC)</strong>, giúp chượp cá hấp thụ nhiệt lượng tối ưu, chín ngấu tự nhiên và đảm bảo môi trường sản xuất sạch khép kín.
+                    </p>
+                </div>
+
+                <div class="brand-card p-7">
+                    <div class="w-12 h-12 rounded-xl navy-gradient text-amber-400 flex items-center justify-center text-xl mb-5 shadow-sm">
+                        <i class="fa-solid fa-droplet"></i>
+                    </div>
+                    <div class="text-xs font-bold uppercase tracking-wider text-brand-amber mb-1">100% Tự Nhiên & Minh Bạch</div>
+                    <h3 class="text-xl font-bold text-brand-navy mb-3">Giọt Mắm Nguyên Chất & Dây Chuyền Khép Kín</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        Ủ chượp hoàn toàn từ cá biển tươi vùng biển Thanh Hóa cùng muối biển tinh khiết. Nước Mắm Truyền Thống Ba Làng TH giàu acid amin tự nhiên, hậu vị ngọt sâu, không sử dụng chất bảo quản hóa học. Khu vực chiết rót và đóng chai vận hành khép kín theo chuẩn <strong>ISO 22000:2018 và HACCP CODEX</strong>.
+                    </p>
+                </div>
+
+                <div class="brand-card p-7">
+                    <div class="w-12 h-12 rounded-xl navy-gradient text-amber-400 flex items-center justify-center text-xl mb-5 shadow-sm">
+                        <i class="fa-solid fa-route"></i>
+                    </div>
+                    <div class="text-xs font-bold uppercase tracking-wider text-brand-amber mb-1">Kinh Tế Gắn Liền Văn Hóa</div>
+                    <h3 class="text-xl font-bold text-brand-navy mb-3">Điểm Đến Du Lịch Làng Nghề Tại Tĩnh Gia</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        Với khuôn viên xanh sạch, bãi đỗ xe rộng rãi cho các đoàn xe du lịch – Limousine, phòng đón tiếp trang trọng và khu trưng bày sản phẩm OCOP quy chuẩn, Ba Làng TH là điểm sáng đón các đoàn đại biểu, du khách trong và ngoài tỉnh đến tham quan, tìm hiểu văn hóa ẩm thực biển Tĩnh Gia.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 3: E-CATALOGUE HEYZINE TRỰC TUYẾN -->
+    <section id="catalogue" class="py-16 lg:py-24 bg-brand-navy text-white relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4 reveal">
+                <div>
+                    <div class="inline-flex items-center gap-2 text-amber-400 text-xs font-extrabold uppercase tracking-widest mb-2">
+                        <i class="fa-solid fa-book-open-reader"></i> Ấn Phẩm Điện Tử Tương Tác Chính Thức
+                    </div>
+                    <h2 class="font-heritage text-3xl sm:text-4xl font-bold text-white">Catalogue Nước Mắm Truyền Thống Ba Làng TH</h2>
+                    <p class="text-slate-300 mt-2 text-sm sm:text-base max-w-2xl">
+                        Kính mời Quý Lãnh đạo và Cán bộ UBND Phường Tĩnh Gia lật trang trực tiếp trên màn hình dưới đây để xem trọn bộ ấn phẩm giới thiệu quy mô, câu chuyện thương hiệu và danh mục sản phẩm tiêu biểu của Ba Làng TH.
+                    </p>
+                </div>
+                <div class="flex items-center gap-3 shrink-0">
+                    <a href="https://heyzine.com/flip-book/309ab6b782.html" target="_blank" class="px-5 py-3 rounded-xl amber-gradient text-white text-sm font-bold hover:brightness-110 transition shadow-lg flex items-center gap-2 btn-shine">
+                        <i class="fa-solid fa-expand"></i> Mở Toàn Màn Hình
+                    </a>
+                </div>
+            </div>
+
+            <div class="bg-white/10 backdrop-blur-md rounded-3xl p-3 sm:p-5 shadow-2xl border border-amber-400/30 reveal">
+                <div class="relative w-full overflow-hidden rounded-2xl bg-slate-900" style="height: 700px;">
+                    <iframe 
+                        src="https://heyzine.com/flip-book/309ab6b782.html" 
+                        title="Catalogue Điện Tử Nước Mắm Truyền Thống Ba Làng TH"
+                        class="w-full h-full border-0"
+                        allowfullscreen="true" 
+                        allow="clipboard-write">
+                    </iframe>
+                </div>
+                <div class="mt-4 px-2 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-300 gap-2">
+                    <span><i class="fa-solid fa-hand-pointer text-amber-400 mr-1.5"></i>Hướng dẫn: Nhấp chuột vào mép trang hoặc dùng phím mũi tên Trái/Phải để lật trang Catalogue.</span>
+                    <a href="https://heyzine.com/flip-book/309ab6b782.html" target="_blank" class="text-amber-400 font-semibold hover:underline">
+                        Mở trong cửa sổ riêng <i class="fa-solid fa-arrow-up-right-from-square ml-1"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 4: HỒ SƠ CHỨNG NHẬN PHÁP LÝ & TIÊU CHUẨN QUỐC TẾ -->
+    <section id="chung-nhan" class="py-16 lg:py-24 bg-ocean-watercolor border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-14 reveal">
+                <div class="inline-flex items-center gap-2 text-brand-amber text-xs font-extrabold uppercase tracking-widest mb-2">
+                    <i class="fa-solid fa-shield-halved"></i> Minh Bạch Pháp Lý & Chất Lượng
+                </div>
+                <h2 class="font-heritage text-3xl sm:text-4xl font-bold text-brand-navy">Hệ Thống Chứng Nhận Quốc Gia & Quốc Tế</h2>
+                <p class="text-slate-600 mt-3 text-sm sm:text-base">
+                    Mọi sản phẩm của Ba Làng TH đều sở hữu đầy đủ hồ sơ công bố, chứng nhận OCOP của UBND Tỉnh Thanh Hóa và các chứng chỉ quản lý an toàn thực phẩm quốc tế. Nhấn vào từng mục để xem bản gốc PDF.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch reveal">
+                <!-- OCOP 2026 -->
+                <div class="brand-card p-6 justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-5">
+                            <div class="w-12 h-12 rounded-xl navy-gradient text-amber-400 flex items-center justify-center text-xl shadow-sm">
+                                <i class="fa-solid fa-star"></i>
+                            </div>
+                            <span class="px-2.5 py-1 rounded-md bg-amber-100 text-brand-gold text-xs font-bold">QĐ 715/QĐ-UBND</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-brand-navy">Chứng Nhận OCOP 2026</h3>
+                        <p class="text-slate-600 text-xs sm:text-sm mt-2 leading-relaxed">
+                            UBND Tỉnh Thanh Hóa cấp ngày 12/03/2026 cho chủ thể tại Phường Tĩnh Gia:
+                        </p>
+                        <ul class="text-xs text-slate-700 space-y-2 mt-3.5 font-medium border-t border-slate-100 pt-3">
+                            <li><i class="fa-solid fa-medal text-brand-amber mr-1.5"></i><strong>Nước Mắm Cốt TH:</strong> Đạt OCOP 4 Sao</li>
+                            <li><i class="fa-solid fa-medal text-brand-amber mr-1.5"></i><strong>Mắm Tôm Đặc Biệt:</strong> Đạt OCOP 3 Sao</li>
+                            <li><i class="fa-solid fa-medal text-brand-amber mr-1.5"></i><strong>Mắm Tép Ba Làng:</strong> Đạt OCOP 3 Sao</li>
+                        </ul>
+                    </div>
+                    <a id="cert-ocop" href="#" target="_blank" class="mt-6 w-full py-2.5 px-4 rounded-xl navy-gradient text-white font-semibold text-xs hover:opacity-95 transition flex items-center justify-center gap-2 shadow-sm">
+                        <i class="fa-solid fa-file-pdf text-amber-400"></i> Xem Quyết Định & Bằng OCOP
+                    </a>
+                </div>
+
+                <!-- U.S. FDA -->
+                <div class="brand-card p-6 justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-5">
+                            <div class="w-12 h-12 rounded-xl navy-gradient text-amber-400 flex items-center justify-center text-xl shadow-sm">
+                                <i class="fa-solid fa-earth-americas"></i>
+                            </div>
+                            <span class="px-2.5 py-1 rounded-md bg-blue-50 text-brand-blue text-xs font-bold">FFR#: 12232547010</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-brand-navy">Chứng Nhận U.S. FDA Hoa Kỳ</h3>
+                        <p class="text-slate-600 text-xs sm:text-sm mt-2 leading-relaxed">
+                            Đăng ký cơ sở chế biến thực phẩm hợp lệ với Cục Quản lý Thực phẩm và Dược phẩm Hoa Kỳ (U.S. FDA).
+                        </p>
+                        <ul class="text-xs text-slate-700 space-y-2 mt-3.5 font-medium border-t border-slate-100 pt-3">
+                            <li><i class="fa-solid fa-check text-emerald-600 mr-1.5"></i>Mã số DUNS: <strong>55-601-9150</strong></li>
+                            <li><i class="fa-solid fa-check text-emerald-600 mr-1.5"></i>Số Certificate: <strong>FL1182609392</strong></li>
+                            <li><i class="fa-solid fa-check text-emerald-600 mr-1.5"></i>Chuẩn hóa xuất khẩu quốc tế</li>
+                        </ul>
+                    </div>
+                    <a id="cert-fda" href="#" target="_blank" class="mt-6 w-full py-2.5 px-4 rounded-xl navy-gradient text-white font-semibold text-xs hover:opacity-95 transition flex items-center justify-center gap-2 shadow-sm">
+                        <i class="fa-solid fa-file-pdf text-amber-400"></i> Xem Chứng Nhận U.S. FDA
+                    </a>
+                </div>
+
+                <!-- ISO 22000 & ISO 9001 -->
+                <div class="brand-card p-6 justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-5">
+                            <div class="w-12 h-12 rounded-xl navy-gradient text-amber-400 flex items-center justify-center text-xl shadow-sm">
+                                <i class="fa-solid fa-certificate"></i>
+                            </div>
+                            <span class="px-2.5 py-1 rounded-md bg-emerald-50 text-emerald-800 text-xs font-bold">HA 211 & HT 760</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-brand-navy">ISO 22000:2018 & ISO 9001</h3>
+                        <p class="text-slate-600 text-xs sm:text-sm mt-2 leading-relaxed">
+                            Hệ thống Quản lý An toàn thực phẩm và Hệ thống Quản lý Chất lượng Quốc tế do Viện ISSQ chứng nhận.
+                        </p>
+                        <ul class="text-xs text-slate-700 space-y-2 mt-3.5 font-medium border-t border-slate-100 pt-3">
+                            <li><i class="fa-solid fa-check text-emerald-600 mr-1.5"></i>ISO 22000: Mã 211-24-01/00</li>
+                            <li><i class="fa-solid fa-check text-emerald-600 mr-1.5"></i>ISO 9001: Mã 760-24-01/00</li>
+                            <li><i class="fa-solid fa-check text-emerald-600 mr-1.5"></i>Hiệu lực đến: 04/10/2027</li>
+                        </ul>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2 mt-6">
+                        <a id="cert-iso22000" href="#" target="_blank" class="py-2.5 px-3 rounded-xl navy-gradient text-white font-semibold text-xs hover:opacity-95 transition text-center shadow-sm">
+                            <i class="fa-solid fa-file-pdf text-amber-400 mr-1"></i>ISO 22000
+                        </a>
+                        <a id="cert-iso9001" href="#" target="_blank" class="py-2.5 px-3 rounded-xl bg-slate-100 text-brand-navy border border-slate-300 font-semibold text-xs hover:bg-slate-200 transition text-center">
+                            <i class="fa-solid fa-file-pdf text-brand-amber mr-1"></i>ISO 9001
+                        </a>
+                    </div>
+                </div>
+
+                <!-- HACCP CODEX -->
+                <div class="brand-card p-6 justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-5">
+                            <div class="w-12 h-12 rounded-xl navy-gradient text-amber-400 flex items-center justify-center text-xl shadow-sm">
+                                <i class="fa-solid fa-microscope"></i>
+                            </div>
+                            <span class="px-2.5 py-1 rounded-md bg-purple-50 text-purple-800 text-xs font-bold">HP 297 • Rev 2020</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-brand-navy">Tiêu Chuẩn HACCP CODEX</h3>
+                        <p class="text-slate-600 text-xs sm:text-sm mt-2 leading-relaxed">
+                            Hệ thống Phân tích mối nguy và Điểm kiểm soát tới hạn trong toàn bộ chuỗi chế biến nước mắm và hải sản.
+                        </p>
+                        <ul class="text-xs text-slate-700 space-y-2 mt-3.5 font-medium border-t border-slate-100 pt-3">
+                            <li><i class="fa-solid fa-check text-emerald-600 mr-1.5"></i>Mã số: <strong>297-24-01/00</strong></li>
+                            <li><i class="fa-solid fa-check text-emerald-600 mr-1.5"></i>Chuẩn CXC 1-1969, Rev 2020</li>
+                            <li><i class="fa-solid fa-check text-emerald-600 mr-1.5"></i>Kiểm soát chất lượng nghiêm ngặt</li>
+                        </ul>
+                    </div>
+                    <a id="cert-haccp" href="#" target="_blank" class="mt-6 w-full py-2.5 px-4 rounded-xl navy-gradient text-white font-semibold text-xs hover:opacity-95 transition flex items-center justify-center gap-2 shadow-sm">
+                        <i class="fa-solid fa-file-pdf text-amber-400"></i> Xem Chứng Nhận HACCP
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 5: KHO TƯ LIỆU HÌNH ẢNH NHÀ MÁY & ĐOÀN KHÁCH THAM QUAN (31 ẢNH THỰC TẾ) -->
+    <section id="thu-vien" class="py-16 lg:py-24 bg-brand-pearl">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-10 reveal">
+                <div class="inline-flex items-center gap-2 text-brand-amber text-xs font-extrabold uppercase tracking-widest mb-2">
+                    <i class="fa-solid fa-photo-film"></i> Kho Tư Liệu Thực Tế Tại Đơn Vị
+                </div>
+                <h2 class="font-heritage text-3xl sm:text-4xl font-bold text-brand-navy">Hình Ảnh Cơ Sở Hạ Tầng & Đoàn Khách Trải Nghiệm</h2>
+                <p class="text-slate-600 mt-3 text-sm sm:text-base">
+                    Hệ thống 31 hình ảnh thực tế ghi lại toàn cảnh nhà máy, khu bể ủ nhà kính năng lượng mặt trời, dây chuyền chiết rót chuẩn ISO và hoạt động đón tiếp các đoàn khách tham quan tại Ba Làng TH.
+                </p>
+            </div>
+
+            <!-- Bộ lọc 3 Tabs (Đã loại bỏ hoàn toàn phần ảnh sản phẩm TMĐT) -->
+            <div class="flex flex-wrap justify-center gap-2.5 sm:gap-3.5 mb-12 reveal">
+                <button onclick="filterGallery('all')" id="tab-all" class="gallery-tab tab-btn-active px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold border border-slate-300 bg-white text-slate-700 transition">
+                    Tất cả tư liệu (31)
+                </button>
+                <button onclick="filterGallery('coso')" id="tab-coso" class="gallery-tab px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold border border-slate-300 bg-white text-slate-700 hover:border-brand-navy transition">
+                    <i class="fa-solid fa-solar-panel mr-1.5 text-brand-amber"></i>1. Cơ Sở Hạ Tầng, Bể Ủ Nhà Kính & Dây Chuyền (21)
+                </button>
+                <button onclick="filterGallery('doankhach')" id="tab-doankhach" class="gallery-tab px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold border border-slate-300 bg-white text-slate-700 hover:border-brand-navy transition">
+                    <i class="fa-solid fa-users-viewfinder mr-1.5 text-brand-amber"></i>2. Đoàn Khách Tham Quan & Trải Nghiệm Làng Nghề (10)
+                </button>
+            </div>
+
+            <!-- Lưới Thẻ Ảnh Vuông Vức, Căn Đỉnh Đồng Đều -->
+            <div id="gallery-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 items-stretch reveal">
+                <!-- Render tự động từ JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- KHU VỰC TRUY CẬP NHANH KHO DỮ LIỆU GỐC TRÊN DRIVE -->
+    <section class="py-14 bg-white border-t border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 reveal">
+            <div class="navy-gradient rounded-3xl p-8 sm:p-10 text-white shadow-xl flex flex-col lg:flex-row items-center justify-between gap-8 border border-amber-400/20">
+                <div class="max-w-2xl">
+                    <span class="text-amber-400 text-xs font-bold uppercase tracking-widest">Tải Xuống Tư Liệu Gốc Phục Vụ Công Tác Lưu Trữ</span>
+                    <h3 class="font-heritage text-2xl sm:text-3xl font-bold mt-2">Truy Cập Trực Tiếp Thư Mục Google Drive</h3>
+                    <p class="text-slate-300 text-sm mt-2 leading-relaxed">
+                        Toàn bộ tệp ảnh gốc độ phân giải cao và hồ sơ chứng nhận PDF đã được sắp xếp khoa học trên Google Drive để UBND Phường Tĩnh Gia thuận tiện tra cứu và tải về khi cần thiết.
+                    </p>
+                </div>
+                <div class="flex flex-wrap gap-3 shrink-0">
+                    <a id="drive-main-btn" href="#" target="_blank" class="px-6 py-3.5 rounded-xl amber-gradient text-white font-bold text-sm shadow-lg hover:brightness-110 transition flex items-center gap-2.5 btn-shine">
+                        <i class="fa-brands fa-google-drive text-base"></i> Mở Thư Mục Hồ Sơ Gốc
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER CHUẨN LOGO & THÔNG TIN DOANH NGHIỆP -->
+    <footer class="bg-[#091b2e] text-slate-400 py-12 border-t border-white/10 text-xs sm:text-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left">
+                <div class="bg-white rounded-xl px-3.5 py-2 shadow shrink-0">
+                    <img src="https://balang.com.vn/wp-content/uploads/2023/06/LOGO-BA-LANG-TH.svg" alt="Logo Ba Làng TH" class="h-10 w-auto object-contain">
+                </div>
+                <div>
+                    <div class="text-white font-bold text-base tracking-wide">CÔNG TY TNHH CHẾ BIẾN HẢI SẢN BA LÀNG — THƯƠNG HIỆU BA LÀNG TH</div>
+                    <div class="mt-1">Địa chỉ: Số 05 đường Đỗ Đại, Tổ dân phố Thượng Hải, Phường Tĩnh Gia, Tỉnh Thanh Hóa • Điện thoại: 02373.612.973</div>
+                </div>
+            </div>
+            <div class="text-center md:text-right shrink-0">
+                <div class="text-amber-400 font-semibold">Hồ Sơ Năng Lực Điện Tử Kính Trình UBND Phường Tĩnh Gia</div>
+                <div class="mt-0.5">Di Sản Làng Nghề Since 1627 • Doanh Nghiệp Khoa Học & Công Nghệ</div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- LIGHTBOX MODAL XEM ẢNH PHÓNG TO -->
+    <div id="lightbox" class="fixed inset-0 z-50 hidden bg-brand-navy/95 backdrop-blur-md flex items-center justify-center p-4 transition-opacity duration-300">
+        <button onclick="closeLightbox()" class="absolute top-5 right-5 w-11 h-11 rounded-full bg-white/15 hover:bg-white/30 text-white flex items-center justify-center text-xl transition">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+        <div class="max-w-5xl w-full flex flex-col items-center">
+            <img id="lightbox-img" src="" alt="" class="max-h-[78vh] w-auto rounded-2xl shadow-2xl border border-white/20 object-contain bg-black/40">
+            <div class="mt-4 flex flex-col sm:flex-row items-center justify-between w-full max-w-3xl gap-3 px-2">
+                <div>
+                    <div id="lightbox-badge" class="text-xs font-bold uppercase tracking-wider text-amber-400"></div>
+                    <h4 id="lightbox-title" class="text-white font-bold text-base sm:text-lg mt-0.5"></h4>
+                </div>
+                <a id="lightbox-link" href="#" target="_blank" class="px-4 py-2.5 rounded-xl amber-gradient text-white font-bold text-xs hover:brightness-110 transition shrink-0 shadow">
+                    <i class="fa-solid fa-download mr-1.5"></i>Xem / Tải Ảnh Gốc
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const _d = (s) => atob(s);
+        const _thumb = (k, w = 1200) => `https://drive.google.com/thumbnail?id=${_d(k)}&sz=w${w}`;
+        const _view = (k) => `https://drive.google.com/file/d/${_d(k)}/view`;
+
+        // Link thư mục gốc & các chứng nhận PDF
+        document.getElementById('drive-main-btn').href = `https://drive.google.com/drive/folders/${_d('MUxfM1cyWTlDUS1vT3NHcWQzZUZDMlZmbThJNG9IQkNO')}`;
+        document.getElementById('cert-ocop').href = _view('MWNkdTEtZTg3QzNUaFk4aUhHVDBQeVVtamJZdkdfRjBT');
+        document.getElementById('cert-fda').href = _view('MUZZYk5jaXl0aldYQ0JrNmQ1SExnVHU1M2x3cjItYnFD');
+        document.getElementById('cert-iso22000').href = _view('MW9EUEhBeG9vQWhDcml0ai1raFQ2MjV0dHpoT09MaTA3');
+        document.getElementById('cert-iso9001').href = _view('MXlublE4ejBmSll6MzJaV05Wem45QkdOUzNYbFpGckph');
+        document.getElementById('cert-haccp').href = _view('MXJwVWQtZDZmZEpORlYtWjNLNFZHUUdTcUc4ai0tN1hE');
+
+        // Ảnh nền Hero Toàn cảnh
+        document.getElementById('hero-bg-img').src = _thumb('MS1BSmJUaFQyc0stODBPWHZUeTBiZmFTUDd0SDlXeFZR', 1920);
+
+        // 1. Dữ liệu 5 bức ảnh tiêu điểm đẹp nhất (Bento Showcase)
+        const bentoItems = [
+            {
+                k: "MS1BSmJUaFQyc0stODBPWHZUeTBiZmFTUDd0SDlXeFZR",
+                span: "md:col-span-8 md:row-span-2 h-80 md:h-[440px]",
+                badge: "Toàn Cảnh Từ Trên Cao",
+                title: "Quy Mô Nhà Máy & Hệ Thống Bể Ủ Nhà Kính Năng Lượng Mặt Trời Ba Làng TH",
+                desc: "Tọa lạc tại Số 05 đường Đỗ Đại, TDP Thượng Hải, Phường Tĩnh Gia với hạ tầng đồng bộ, hiện đại."
+            },
+            {
+                k: "MUx3MnRaVkpiOUk0bjRTTzRuZ1VzN29faC1CYXNYeURO",
+                span: "md:col-span-4 h-64 md:h-[210px]",
+                badge: "Không Gian Trưng Bày OCOP",
+                title: "Showroom Nước Mắm Truyền Thống Ba Làng TH",
+                desc: "Không gian đón tiếp và giới thiệu sản phẩm chuẩn mực."
+            },
+            {
+                k: "MWZRNUZFT0wwQ2pRWWY5anVuSldXYWNfbkZTaXRUN1Z4",
+                span: "md:col-span-4 h-64 md:h-[210px]",
+                badge: "Công Nghệ Đạt Giải VIFOTEC",
+                title: "Hệ Thống Bể Ủ Nhà Kính & Náo Đảo Tự Động",
+                desc: "Ủ chượp khép kín, hấp thụ năng lượng mặt trời tối ưu."
+            },
+            {
+                k: "MVNBWmRxZXM2cG8zbnU2Skl2ZGlsVDNVeDZXU2tqWENl",
+                span: "md:col-span-6 h-72",
+                badge: "Điểm Đến Du Lịch Làng Nghề",
+                title: "Đón Tiếp Các Đoàn Khách Du Lịch & Trải Nghiệm Thực Tế",
+                desc: "Hạ tầng đỗ xe Limousine và đón đoàn tham quan chuyên nghiệp tại Phường Tĩnh Gia."
+            },
+            {
+                k: "MS1CU21zeERUTzR4WFdxTVpKSmdlcGxpVEpXdUEwNDZi",
+                span: "md:col-span-6 h-72",
+                badge: "Chuẩn ISO 22000 & HACCP",
+                title: "Dây Chuyền Chiết Rót & Đóng Gói Khép Kín Hiện Đại",
+                desc: "Đảm bảo vệ sinh an toàn thực phẩm tuyệt đối trước khi đến tay người tiêu dùng."
+            }
+        ];
+
+        const bentoContainer = document.getElementById('bento-showcase');
+        bentoItems.forEach(item => {
+            const imgUrl = _thumb(item.k, 1400);
+            const vUrl = _view(item.k);
+            const div = document.createElement('div');
+            div.className = `${item.span} relative rounded-2xl overflow-hidden group cursor-pointer shadow-md border border-slate-200`;
+            div.onclick = () => openLightbox(imgUrl, item.badge, item.title, vUrl);
+            div.innerHTML = `
+                <img src="${imgUrl}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
+                <div class="absolute inset-0 bg-gradient-to-t from-brand-navy/90 via-brand-navy/30 to-transparent p-6 flex flex-col justify-end">
+                    <span class="inline-block w-fit px-2.5 py-1 rounded bg-brand-amber text-white text-[11px] font-bold uppercase tracking-wider mb-2 shadow">
+                        ${item.badge}
+                    </span>
+                    <h3 class="text-white font-bold text-lg sm:text-xl leading-snug">${item.title}</h3>
+                    <p class="text-slate-200 text-xs sm:text-sm mt-1 opacity-90">${item.desc}</p>
+                </div>
+            `;
+            bentoContainer.appendChild(div);
+        });
+
+        // 2. Dữ liệu 31 Tư liệu Hình ảnh Cơ sở hạ tầng & Đoàn khách tham quan (Đã bỏ phần ảnh sản phẩm TMĐT)
+        const galleryItems = [
+            // NHÓM 1: CƠ SỞ HẠ TẦNG, BỂ Ủ NHÀ KÍNH & DÂY CHUYỀN (21 ảnh)
+            { k: "MS1BSmJUaFQyc0stODBPWHZUeTBiZmFTUDd0SDlXeFZR", cat: "coso", badge: "Toàn cảnh cơ sở", title: "01. Toàn cảnh Nhà máy & Khu bể ủ nhà kính Ba Làng TH" },
+            { k: "MTYzT3JZT1hsdFEycnZZNFJzQS03OUt3Nlk5VGdOQ25h", cat: "coso", badge: "Cổng chào nhà máy", title: "02. Cổng vào Công ty TNHH Chế biến Hải sản Ba Làng (Góc 1)" },
+            { k: "MVprV0R0bVY1bFBFZTFFNEZvdG4ya3dWZjBmZTVidC1a", cat: "coso", badge: "Cổng chào nhà máy", title: "03. Cổng vào Công ty TNHH Chế biến Hải sản Ba Làng (Góc 2)" },
+            { k: "MUNZZVgxX25USUZMMVN6TmpKSTV1Z0VnR19DMkVVaDNn", cat: "coso", badge: "Khuôn viên xanh sạch", title: "04. Khuôn viên nội khu khang trang, sạch đẹp (Góc 1)" },
+            { k: "MUVKcGxuaEw1YndoWk1ZbVZhUGJ0cXdLWUQ2YjlJdEMy", cat: "coso", badge: "Khuôn viên xanh sạch", title: "05. Khuôn viên nội khu & Lối di chuyển tham quan (Góc 2)" },
+            { k: "MVFmeG51THFjM0o2SXdOLWZORUFJSFdjSVRnSnlzWUFZ", cat: "coso", badge: "Hạ tầng đón đoàn", title: "06. Khu vực bãi đỗ xe rộng rãi phục vụ đoàn khách" },
+            { k: "MW1NbVJKSVZONEhTVVdYTWsxZUFobkp2QlNObEhvREZk", cat: "coso", badge: "Không gian đón tiếp", title: "07. Phòng đón tiếp đoàn đại biểu & du khách (Góc 1)" },
+            { k: "MWgzT1o3U002Nk5yQmstREdTU09Od2sxV21meXhZTUZU", cat: "coso", badge: "Không gian đón tiếp", title: "08. Phòng đón tiếp & Giao lưu văn hóa làng nghề (Góc 2)" },
+            { k: "MXp4QWxlSndzMlBCTTlVWm9nMnZoTG5rYVVrbDdqY3lI", cat: "coso", badge: "Không gian đón tiếp", title: "09. Không gian trà đàm & Giới thiệu lịch sử thương hiệu (Góc 3)" },
+            { k: "MUx3MnRaVkpiOUk0bjRTTzRuZ1VzN29faC1CYXNYeURO", cat: "coso", badge: "Showroom OCOP", title: "10. Khu trưng bày & Giới thiệu Nước Mắm Truyền Thống Ba Làng TH" },
+            { k: "MXYzZmR6dEpTM3Q4TFFIQVhkZnk4WVJqbVRvQ1VONmNN", cat: "coso", badge: "Bể ủ nhà kính", title: "11. Hệ thống bể ủ hiện đại trong nhà kính năng lượng mặt trời (Góc 1)" },
+            { k: "MXd0aVJQdHdnTjItQVdFc3l0R0xBSDctNjV0UEdPMDRC", cat: "coso", badge: "Bể ủ nhà kính", title: "12. Hệ thống bể ủ hiện đại & Náo đảo tự động (Góc 2)" },
+            { k: "MWZRNUZFT0wwQ2pRWWY5anVuSldXYWNfbkZTaXRUN1Z4", cat: "coso", badge: "Bể ủ nhà kính", title: "13. Toàn cảnh khu bể ủ nhà kính ứng dụng KH&CN (Góc 3)" },
+            { k: "MV93Qm5KbW1pX0VwWjlrYjBRVXpxdnd0blJZd0NMcVdV", cat: "coso", badge: "Quy trình ủ chượp", title: "14. Cận cảnh quy trình ủ chượp cá biển tươi & muối sạch (Góc 1)" },
+            { k: "MU0wUkF5cG1Hd25iN09SaFFmQjI3MHBUR0o1MXVuZUNw", cat: "coso", badge: "Quy trình ủ chượp", title: "15. Cận cảnh chượp chín tự nhiên giàu acid amin (Góc 2)" },
+            { k: "MXhBUmlCSnFGTEU0djNvbWo2QWxnVXA4TTEySWJjRXg2", cat: "coso", badge: "Quy trình ủ chượp", title: "16. Cận cảnh cốt mắm truyền thống Ba Làng TH (Góc 3)" },
+            { k: "MU0zVnRrWGFnNHRycGVwamFUTWdreFBiZTRFVHgwT1Zw", cat: "coso", badge: "Kỹ thuật & Con người", title: "17. Đội ngũ kỹ thuật chăm sóc và kiểm tra bể ủ (Góc 1)" },
+            { k: "MWEyR2JvM2VEYjFBVlhsSWtidmxrcmtKWUZ0aDd1SWd5", cat: "coso", badge: "Kỹ thuật & Con người", title: "18. Quy trình vận hành và kiểm soát chất lượng chượp (Góc 2)" },
+            { k: "MWV5Q2xzaEMxUUZHWHBhbEg2N3F4OEh5OVhtdkFkeHlY", cat: "coso", badge: "Kỹ thuật & Con người", title: "19. Gìn giữ tâm huyết gần 400 năm nghề mắm truyền thống (Góc 3)" },
+            { k: "MUNrc0hPX2h3dHBzaXZDdmNOdjcxZ2Zrek5LSFdnM2ZH", cat: "coso", badge: "Dây chuyền chiết rót", title: "20. Khu chiết rót và đóng chai khép kín đạt chuẩn ISO (Góc 1)" },
+            { k: "MS1CU21zeERUTzR4WFdxTVpKSmdlcGxpVEpXdUEwNDZi", cat: "coso", badge: "Dây chuyền chiết rót", title: "21. Hệ thống đóng gói & Kiểm định thành phẩm (Góc 2)" },
+
+            // NHÓM 2: ĐOÀN KHÁCH THAM QUAN & TRẢI NGHIỆM (10 ảnh)
+            { k: "MVNBWmRxZXM2cG8zbnU2Skl2ZGlsVDNVeDZXU2tqWENl", cat: "doankhach", badge: "Đón Đoàn Tham Quan", title: "22. Đoàn khách du lịch chụp ảnh lưu niệm tại cổng Nhà máy Ba Làng TH" },
+            { k: "MXFBQ05fTjctSWhhY1BQMHR3T0xfTlZteGtTRFpHZnZt", cat: "doankhach", badge: "Tham Quan Thực Tế", title: "23. Đoàn khách tham quan thực tế khu vực sản xuất (Hình 1)" },
+            { k: "MWVKX2hFRVNqWjFGZnY1aEUzSVdwekNsMzlVZXRuZUZm", cat: "doankhach", badge: "Thuyết Minh Làng Nghề", title: "24. Đoàn khách nghe thuyết minh về quy trình ủ chượp gần 400 năm (Hình 2)" },
+            { k: "MWJnLTRoa2JvNDFLamhBajVOMXZ2NDNXVUpMb0l4MERh", cat: "doankhach", badge: "Tham Quan Bể Ủ", title: "25. Du khách trực tiếp tìm hiểu hệ thống bể ủ nhà kính (Hình 3)" },
+            { k: "MVpISXZvWWd1ckFIUGVzU2tnV2pmTk8wTTFPN0F0VHl0", cat: "doankhach", badge: "Thưởng Thức Đặc Sản", title: "26. Khách tham quan trải nghiệm hương vị sản phẩm tại Showroom (Hình 4)" },
+            { k: "MTVSSU41eDhOeExHQWVQNWU0V3YwLXVzVHUxS2s3ZmdZ", cat: "doankhach", badge: "Giao Lưu Kết Nối", title: "27. Hoạt động đón tiếp các đoàn đại biểu & du khách (Hình 5)" },
+            { k: "MVBFZ2V0MWxXc3JEQjZMZ0NUOXB3RnlLcnJnTzM4ZWNl", cat: "doankhach", badge: "Du Lịch Làng Nghề", title: "28. Trải nghiệm văn hóa làng nghề biển Ba Làng – Tĩnh Gia (Hình 6)" },
+            { k: "MWdTcFhIUVdERlFSMlk5UDdIYUlHVnFMR0xjNDFVUy0x", cat: "doankhach", badge: "Không Gian Đón Tiếp", title: "29. Không gian đón khách khang trang, thân thiện (Hình 7)" },
+            { k: "MVZvZks5Z1RKTmxFZ283SUY0ZXJBSnhLQV9OcGhnQkZ2", cat: "doankhach", badge: "Mua Sắm OCOP", title: "30. Du khách lựa chọn Nước Mắm Truyền Thống Ba Làng TH làm quà (Hình 8)" },
+            { k: "MUQ2YTZCeWx1T1ZMM0NUa09RanRQcGgtdV9QVjE3bWww", cat: "doankhach", badge: "Quảng Bá Địa Phương", title: "31. Lan tỏa giá trị đặc sản OCOP Phường Tĩnh Gia – Thanh Hóa (Hình 9)" }
+        ];
+
+        // Đảm bảo chính xác tuyệt đối các mã ảnh
+        galleryItems[19].k = btoa("1CksHO_hwtpsivCvcNv71wfkzNKHWg3fG");
+        galleryItems[22].k = btoa("1qACN_N7-IhacPP0t7OL_NVmxkSDZgFvm");
+        galleryItems[27].k = btoa("1PEget1lWsrDB6LgCT9pwFyKrrgO38ecE");
+        galleryItems[30].k = btoa("1D6a6ByluOVL3CTkOQjtPph-u_PVa7ml0");
+
+        function renderGallery(filter = 'all') {
+            const grid = document.getElementById('gallery-grid');
+            grid.innerHTML = '';
+
+            const filtered = filter === 'all' ? galleryItems : galleryItems.filter(item => item.cat === filter);
+
+            filtered.forEach((item, idx) => {
+                const thumbUrl = _thumb(item.k, 1000);
+                const viewUrl = _view(item.k);
+
+                const card = document.createElement('div');
+                card.className = 'brand-card overflow-hidden group cursor-pointer';
+                card.style.transitionDelay = `${(idx % 4) * 45}ms`;
+                card.onclick = () => openLightbox(thumbUrl, item.badge, item.title, viewUrl);
+
+                card.innerHTML = `
+                    <div class="relative h-56 overflow-hidden bg-slate-100">
+                        <img src="${thumbUrl}" alt="${item.title}" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-brand-navy/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition flex items-end p-4">
+                            <span class="text-white text-xs font-semibold flex items-center gap-1.5">
+                                <i class="fa-solid fa-magnifying-glass-plus text-amber-400"></i> Nhấn để phóng to ảnh
+                            </span>
+                        </div>
+                        <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-brand-navy/90 backdrop-blur-sm text-amber-400 text-[11px] font-bold tracking-wide shadow">
+                            ${item.badge}
+                        </span>
+                    </div>
+                    <div class="p-4 flex-1 flex flex-col justify-start">
+                        <h3 class="font-bold text-brand-navy text-sm leading-snug group-hover:text-brand-amber transition">${item.title}</h3>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function filterGallery(cat) {
+            document.querySelectorAll('.gallery-tab').forEach(btn => btn.classList.remove('tab-btn-active'));
+            document.getElementById(`tab-${cat}`).classList.add('tab-btn-active');
+            renderGallery(cat);
+        }
+
+        function openLightbox(imgSrc, badge, title, driveUrl) {
+            document.getElementById('lightbox-img').src = imgSrc;
+            document.getElementById('lightbox-badge').textContent = badge;
+            document.getElementById('lightbox-title').textContent = title;
+            document.getElementById('lightbox-link').href = driveUrl;
+            document.getElementById('lightbox').classList.remove('hidden');
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.add('hidden');
+            document.getElementById('lightbox-img').src = '';
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeLightbox();
+        });
+
+        // Kích hoạt hiệu ứng động Scroll Reveal khi cuộn trang
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        renderGallery('all');
+    </script>
+</body>
+</html>
